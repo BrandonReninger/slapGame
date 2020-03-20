@@ -28,6 +28,8 @@ function reset() {
     update()
 }
 
+
+
 function slap() {
     if (shield.shielded == true || quadDamage.applied == true) {
         target.hp = target.hp - Math.round(((1 + fireDamage.damage) * shield.multiplier * quadDamage.multiplier))
@@ -35,6 +37,7 @@ function slap() {
         target.hp -= 1
         target.hp -= fireDamage.damage
     }
+    target.hits++
     decrementMods()
     update()
 }
@@ -46,6 +49,7 @@ function punch() {
         target.hp -= 5
         target.hp -= fireDamage.damage
     }
+    target.hits++
     decrementMods()
     update()
 }
@@ -57,6 +61,7 @@ function kick() {
         target.hp -= 10
         target.hp -= fireDamage.damage
     }
+    target.hits++
     decrementMods()
     update()
 }
@@ -116,22 +121,29 @@ function update() {
 
     template += /*html*/ `
     <div class="row">
-    <div class="col-4">
+    <div class="col-5 border border-danger">
     <img class="img-fluid"
     src=${target.img}>
     </div>
-    <div class="col-6">
+    <div class="col-6 border border-danger d-flex justify-content-start align-items-center">
+    <div class="user-interface">
     <h3>HP: ${target.hp}</h3>
-    <h3>Hits: ${target.hits}</h3>
-    <h3>Name: ${target.name}</h3>
+    <h3>Times Hit: ${target.hits}</h3>
+    <h3>Enemy: ${target.name}</h3>
+    </div>
     </div>
     </div>
     `
     let myTemplate = document.getElementById("update").innerHTML = template
-    if (target.hp < 1) {
 
-        document.getElementsByClassName("btn-danger")
-        document.getElementsByClassName("btn-primary")
+    //TODO finish disable buttons feature
+    if (target.hp < 1) {
+        reset();
+        document.getElementById("slap").disabled = true
+        let disablePrimary = document.querySelectorAll("btn-primary")
+
+
+
 
     }
 
